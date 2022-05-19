@@ -39,4 +39,9 @@ public class Aviao {
     public void imprimaOk() {
         System.out.println("Ok");
     }
+
+    public void descreve() {
+        System.out.printf("Modelo: %s\nIdentificador: %s\nMotor: %b\nAltura: %.2f\n",
+                modelo, identificador, motor, altura);
+    }
 }
