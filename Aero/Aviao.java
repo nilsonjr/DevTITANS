@@ -4,6 +4,13 @@ public class Aviao {
     private boolean motor;
     private float altura;
 
+    public Aviao(String modelo, String identificador) {
+        setModelo(modelo);
+        setIdentificador(identificador);
+        setMotor(false);
+        setAltura(0.0f);
+    }
+
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
