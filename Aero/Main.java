@@ -21,5 +21,13 @@ public class Main {
         aviao.desacelerar();
         aviao.desligarMotor();
         aviao.desacelerar();
+
+        aviao.ligarMotor();
+        for (int i = 0; i < 5; ++i) {
+            aviao.acelerar();
+        }
+        for (int i = 0; i < 6; ++i) {
+            aviao.desacelerar();
+        }
     }
 }
