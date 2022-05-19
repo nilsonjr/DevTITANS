@@ -3,12 +3,18 @@ public class Aviao {
     private String identificador;
     private boolean motor;
     private float altura;
+    private float velocidade;
+
+    private final float INCREMENTO_DE_VELOCIDADE = 50.0f;
+    private final float VELOCIDADE_ZERO = 0.0f;
+    private final boolean MOTOR_LIGADO = true;
+    private final boolean MOTOR_DESLIGADO = false;
 
     public Aviao(String modelo, String identificador) {
         setModelo(modelo);
         setIdentificador(identificador);
-        setMotor(false);
-        setAltura(0.0f);
+        setMotor(MOTOR_DESLIGADO);
+        setAltura(VELOCIDADE_ZERO);
     }
 
     public void setModelo(String modelo) {
@@ -27,6 +33,10 @@ public class Aviao {
         this.altura = altura;
     }
 
+    private void setVelocidade(float velocidade) {
+        this.velocidade = velocidade;
+    }
+
     public String getModelo() {
         return this.modelo;
     }
@@ -43,13 +53,38 @@ public class Aviao {
         return this.altura;
     }
 
+    public float getVelocidade() {
+        return this.velocidade;
+    }
+
     public void ligarMotor() {
-        setMotor(true);
+        setMotor(MOTOR_LIGADO);
         System.out.println("Vrummmmmmm");
     }
 
     public void desligarMotor() {
-        setMotor(false);
+        setMotor(MOTOR_DESLIGADO);
+    }
+
+    public void acelerar() {
+        if (getMotor()) {
+            setVelocidade(getVelocidade() + INCREMENTO_DE_VELOCIDADE);
+            imprimeVelocidade();
+        } else {
+            System.out.println("ERRO: Motor desligado");
+        }
+    }
+
+    public void desacelerar() {
+        if (getMotor()) {
+            setVelocidade(getVelocidade() - INCREMENTO_DE_VELOCIDADE);
+            if (getVelocidade() < VELOCIDADE_ZERO) {
+                setVelocidade(VELOCIDADE_ZERO);
+            }
+            imprimeVelocidade();
+        } else {
+            System.out.println("ERRO: Motor desligado");
+        }
     }
 
     public void imprimaOk() {
@@ -58,10 +93,14 @@ public class Aviao {
 
     public void descreve() {
         System.out.printf("Modelo: %s\nIdentificador: %s\nMotor: %b\nAltura: %.2f\n",
-                modelo, identificador, motor, altura);
+                getModelo(), getIdentificador(), getMotor(), getAltura());
     }
 
     public void imprimeEstadoMotor() {
-        System.out.printf("O motor esta %s..\n", motor ? "ligado" : "desligado");
+        System.out.printf("O motor esta %s..\n", getMotor() ? "ligado" : "desligado");
+    }
+
+    public void imprimeVelocidade() {
+        System.out.printf("Aviao a %.1f km/h\n", getVelocidade());
     }
 }
