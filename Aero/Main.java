@@ -4,5 +4,10 @@ public class Main {
     
         aviao.imprimaOk();
         aviao.descreve();
+
+        aviao.ligarMotor();
+        aviao.imprimeEstadoMotor();
+        aviao.desligarMotor();
+        aviao.imprimeEstadoMotor();
     }
 }
