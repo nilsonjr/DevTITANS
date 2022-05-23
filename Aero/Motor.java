@@ -33,7 +33,7 @@ public class Motor {
     }
 
     public float getPotenciaEfetiva() {
-        return this.ativo ? this.potencia : 0.0f;
+        return getAtivo() ? getPotencia() : 0.0f;
     }
 
     public boolean getAtivo() {

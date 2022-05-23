@@ -141,16 +141,16 @@ public class Aviao {
         if (getEmVoo() == EM_VOO) {
             if (getVelocidade() < VELOCIDADE_DE_VOO) {
                 setEmVoo(EM_SOLO);
-                System.out.println("Estou aterrissando...");
+                System.out.println("Estou aterrissando....");
             } else {
-                System.out.println("Estou voando...");
+                System.out.println("Estou voando....");
             }
         } else {
             if (getVelocidade() < VELOCIDADE_DE_VOO) {
-                System.out.println("Estou em solo...");
+                System.out.println("Estou em solo....");
             } else {
                 setEmVoo(EM_VOO);
-                System.out.println("Estou decolando...");
+                System.out.println("Estou decolando....");
             }
         }
     }
@@ -168,13 +168,13 @@ public class Aviao {
         int estadoMotores = getEstadoMotor();
         switch (estadoMotores) {
             case MOTORES_LIGADOS:
-                System.out.println("Os motores estão ligados...");
+                System.out.println("Os motores estão ligados....");
                 break;
             case MOTORES_DESLIGADOS:
-                System.out.println("Os motores estão desligados...");
+                System.out.println("Os motores estão desligados....");
                 break;
             default:
-                System.out.printf("Apenas o motor %s está ligado...\n",
+                System.out.printf("Apenas o motor %s está ligado....\n",
                         estadoMotores == TAG_MOTOR_DIREITO ? "direito" : "esquerdo");
                 break;
         }

@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args) {
-        Motor motorEsquerdo = new Motor("Oberursel Ur.I", 50.0f);
-        Motor motorDireito = new Motor("Le Rhône 9j", 50.0f);
+        MotorTurbinado motorEsquerdo = new MotorTurbinado("Oberursel Ur.I", 50.0f);
+        MotorTurbinado motorDireito = new MotorTurbinado("Le Rhône 9j", 50.0f);
         Passageiro passageiro1 = new Passageiro("Benedict", "Cumberbatch", "111.222.333-44");
         Passageiro passageiro2 = new Passageiro("Benedict", "Wong", "222.333.444-55");
         Passageiro passageiro3 = new Passageiro("Benedict", "Arnold", "333.444.555-66");
@@ -13,7 +13,7 @@ public class Main {
         aviao.imprimaOk();
         aviao.descreve();
 
-        System.out.println("Testando motoroes...");
+        System.out.println("Testando motoroes....");
         aviao.ligarMotores();
         aviao.imprimeEstadoMotor();
         aviao.desligarMotores();
@@ -30,7 +30,7 @@ public class Main {
         aviao.desligarMotores();
         aviao.desacelerar();
 
-        System.out.println("Iniciando embarque de passageiros...");
+        System.out.println("Iniciando embarque de passageiros....");
         aviao.embarcarPassageiro(passageiro1);
         aviao.embarcarPassageiro(passageiro2);
         aviao.embarcarPassageiro(passageiro3);
@@ -43,7 +43,7 @@ public class Main {
         }
 
         aviao.embarcarPassageiro(passageiro1);
-        System.out.println("Verificação de passageiros...");
+        System.out.println("Verificação de passageiros....");
         aviao.imprimirListaDePassageiros();
         aviao.desembarcarPassageiros();
 
