@@ -1,23 +1,26 @@
 public class Aviao {
     private String modelo;
     private String identificador;
-    private boolean motor;
+    private Motor motorDireito;
+    private Motor motorEsquerdo;
     private float altura;
     private float velocidade;
     private boolean emVoo;
 
-    private final float INCREMENTO_DE_VELOCIDADE = 50.0f;
+    private final int MOTORES_DESLIGADOS = 0;
+    private final int TAG_MOTOR_ESQUERDO = 1;
+    private final int TAG_MOTOR_DIREITO = 2;
+    private final int MOTORES_LIGADOS = TAG_MOTOR_DIREITO + TAG_MOTOR_ESQUERDO;
     private final float VELOCIDADE_ZERO = 0.0f;
     private final float VELOCIDADE_DE_VOO = 200.0f;
-    private final boolean MOTOR_LIGADO = true;
-    private final boolean MOTOR_DESLIGADO = false;
     private final boolean EM_VOO = true;
     private final boolean EM_SOLO = false;
 
-    public Aviao(String modelo, String identificador) {
+    public Aviao(String modelo, String identificador, Motor motorEsquerdo, Motor motorDireito) {
         setModelo(modelo);
         setIdentificador(identificador);
-        setMotor(MOTOR_DESLIGADO);
+        setMotorEsquerdo(motorEsquerdo);
+        setMotorDireito(motorDireito);
         setAltura(VELOCIDADE_ZERO);
     }
 
@@ -29,8 +32,12 @@ public class Aviao {
         this.identificador = identificador;
     }
 
-    public void setMotor(boolean motor) {
-        this.motor = motor;
+    public void setMotorDireito(Motor motorDireito) {
+        this.motorDireito = motorDireito;
+    }
+
+    public void setMotorEsquerdo(Motor motorEsquerdo) {
+        this.motorEsquerdo = motorEsquerdo;
     }
 
     private void setEmVoo(boolean emVoo) {
@@ -45,6 +52,10 @@ public class Aviao {
         this.velocidade = velocidade;
     }
 
+    private float getPotenciaTotal() {
+        return getMotorDireito().getPotenciaEfetiva() + getMotorEsquerdo().getPotenciaEfetiva();
+    }
+
     public String getModelo() {
         return this.modelo;
     }
@@ -53,8 +64,17 @@ public class Aviao {
         return this.identificador;
     }
 
-    public boolean getMotor() {
-        return this.motor;
+    public int getEstadoMotor() {
+        return (getMotorDireito().getAtivoAsInt() * TAG_MOTOR_DIREITO +
+                getMotorEsquerdo().getAtivoAsInt() * TAG_MOTOR_ESQUERDO);
+    }
+
+    public Motor getMotorDireito() {
+        return this.motorDireito;
+    }
+
+    public Motor getMotorEsquerdo() {
+        return this.motorEsquerdo;
     }
 
     public boolean getEmVoo() {
@@ -69,18 +89,19 @@ public class Aviao {
         return this.velocidade;
     }
 
-    public void ligarMotor() {
-        setMotor(MOTOR_LIGADO);
-        System.out.println("Vrummmmmmm");
+    public void ligarMotores() {
+        getMotorDireito().ligar();
+        getMotorEsquerdo().ligar();
     }
 
-    public void desligarMotor() {
-        setMotor(MOTOR_DESLIGADO);
+    public void desligarMotores() {
+        getMotorDireito().desligar();
+        getMotorEsquerdo().desligar();
     }
 
     public void acelerar() {
-        if (getMotor() == MOTOR_LIGADO) {
-            setVelocidade(getVelocidade() + INCREMENTO_DE_VELOCIDADE);
+        if (getEstadoMotor() != MOTORES_DESLIGADOS) {
+            setVelocidade(getVelocidade() + getPotenciaTotal());
             imprimeVelocidade();
         } else {
             System.out.println("ERRO: Motor desligado");
@@ -90,8 +111,8 @@ public class Aviao {
     }
 
     public void desacelerar() {
-        if (getMotor() == MOTOR_LIGADO) {
-            setVelocidade(getVelocidade() - INCREMENTO_DE_VELOCIDADE);
+        if (getEstadoMotor() != MOTORES_DESLIGADOS) {
+            setVelocidade(getVelocidade() - getPotenciaTotal());
             if (getVelocidade() < VELOCIDADE_ZERO) {
                 setVelocidade(VELOCIDADE_ZERO);
             }
@@ -126,12 +147,24 @@ public class Aviao {
     }
 
     public void descreve() {
-        System.out.printf("Modelo: %s\nIdentificador: %s\nMotor: %b\nAltura: %.2f\n",
-                getModelo(), getIdentificador(), getMotor(), getAltura());
+        System.out.printf("Modelo: %s\nIdentificador: %s\nEstado do Motor: %d\nAltura: %.2f\n",
+                getModelo(), getIdentificador(), getEstadoMotor(), getAltura());
     }
 
     public void imprimeEstadoMotor() {
-        System.out.printf("O motor esta %s...\n", getMotor() ? "ligado" : "desligado");
+        int estadoMotores = getEstadoMotor();
+        switch (estadoMotores) {
+            case MOTORES_LIGADOS:
+                System.out.println("Os motores estão ligados...");
+                break;
+            case MOTORES_DESLIGADOS:
+                System.out.println("Os motores estão desligados...");
+                break;
+            default:
+                System.out.printf("Apenas o motor %s está ligado...\n",
+                        estadoMotores == TAG_MOTOR_DIREITO ? "direito" : "esquerdo");
+                break;
+        }
     }
 
     public void imprimeVelocidade() {

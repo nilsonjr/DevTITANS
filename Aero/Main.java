@@ -3,29 +3,29 @@ public class Main {
         Motor motor1 = new Motor("Oberursel Ur.I", 50.0f);
         Motor motor2 = new Motor("Le Rhône 9j", 50.0f);
 
-        Aviao aviao = new Aviao("Fokker Dr.I", "Baron");
+        Aviao aviao = new Aviao("Fokker Dr.I", "Baron", motor1, motor2);
     
         aviao.imprimaOk();
         aviao.descreve();
 
-        aviao.ligarMotor();
+        aviao.ligarMotores();
         aviao.imprimeEstadoMotor();
-        aviao.desligarMotor();
+        aviao.desligarMotores();
         aviao.imprimeEstadoMotor();
 
-        aviao.ligarMotor();
+        aviao.ligarMotores();
         aviao.acelerar();
         aviao.acelerar();
-        aviao.desligarMotor();
+        aviao.desligarMotores();
         aviao.acelerar();
-        aviao.ligarMotor();
+        aviao.ligarMotores();
         aviao.desacelerar();
         aviao.desacelerar();
         aviao.desacelerar();
-        aviao.desligarMotor();
+        aviao.desligarMotores();
         aviao.desacelerar();
 
-        aviao.ligarMotor();
+        aviao.ligarMotores();
         for (int i = 0; i < 5; ++i) {
             aviao.acelerar();
         }

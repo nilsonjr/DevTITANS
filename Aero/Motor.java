@@ -32,8 +32,16 @@ public class Motor {
         return this.potencia;
     }
 
+    public float getPotenciaEfetiva() {
+        return this.ativo ? this.potencia : 0.0f;
+    }
+
     public boolean getAtivo() {
         return this.ativo;
+    }
+
+    public int getAtivoAsInt() {
+        return this.ativo ? 1 : 0;
     }
 
     public void ligar() {
