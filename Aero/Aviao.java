@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class Aviao {
     private String modelo;
     private String identificador;
@@ -6,6 +9,7 @@ public class Aviao {
     private float altura;
     private float velocidade;
     private boolean emVoo;
+    private ArrayList<Passageiro> listaPassageiros;
 
     private final int MOTORES_DESLIGADOS = 0;
     private final int TAG_MOTOR_ESQUERDO = 1;
@@ -22,6 +26,7 @@ public class Aviao {
         setMotorEsquerdo(motorEsquerdo);
         setMotorDireito(motorDireito);
         setAltura(VELOCIDADE_ZERO);
+        setListaPassageiros(new ArrayList<Passageiro>());
     }
 
     public void setModelo(String modelo) {
@@ -50,6 +55,10 @@ public class Aviao {
 
     private void setVelocidade(float velocidade) {
         this.velocidade = velocidade;
+    }
+
+    private void setListaPassageiros(ArrayList<Passageiro> listaPassageiros) {
+        this.listaPassageiros = listaPassageiros;
     }
 
     private float getPotenciaTotal() {
@@ -87,6 +96,10 @@ public class Aviao {
 
     public float getVelocidade() {
         return this.velocidade;
+    }
+
+    public ArrayList<Passageiro> getListaPassageiros() {
+        return this.listaPassageiros;
     }
 
     public void ligarMotores() {
@@ -169,5 +182,52 @@ public class Aviao {
 
     public void imprimeVelocidade() {
         System.out.printf("Aviao a %.1f km/h\n", getVelocidade());
+    }
+
+    public boolean embarcarPassageiro(Passageiro passageiro) {
+        if (getEmVoo() == EM_VOO) {
+            System.out.println(
+                    "Protocolos de segurança não permitem embarques com a aeronave em movimento.");
+            return false;
+        }
+
+        return getListaPassageiros().add(passageiro);
+    }
+
+    public void desembarcarPassageiros() {
+        if (getEmVoo() == EM_VOO) {
+            System.out.println(
+                    "Protocolos de segurança não permitem desembarques com a aeronave em movimento.");
+            return;
+        }
+
+        Iterator<Passageiro> iterador = getListaPassageiros().iterator();
+        Passageiro passageiro;
+
+        while (iterador.hasNext()) {
+            passageiro = iterador.next();
+            System.out.printf("%s %s desembarcou da aeronave!\n",
+                    passageiro.getPrimeiroNome(), passageiro.getUltimoNome());
+            iterador.remove();
+        }
+    }
+
+    public Passageiro buscarPassageiroPorCPF(String cpf) {
+        for (Passageiro passageiro : getListaPassageiros()) {
+            if (cpf.equals(passageiro.getCpf())) {
+                return passageiro;
+            }
+        }
+
+        return null;
+    }
+
+    public void imprimirListaDePassageiros() {
+        getListaPassageiros().forEach((passageiro) -> imprimeInfoPassageiro(passageiro));
+    }
+
+    private void imprimeInfoPassageiro(Passageiro passageiro) {
+        System.out.printf("Passageiro: %s %s | CPF: %s\n",
+                passageiro.getPrimeiroNome(), passageiro.getUltimoNome(), passageiro.getCpf());
     }
 }
