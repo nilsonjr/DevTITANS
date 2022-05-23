@@ -1,5 +1,8 @@
 public class Main {
     public static void main(String[] args) {
+        Motor motor1 = new Motor("Oberursel Ur.I", 50.0f);
+        Motor motor2 = new Motor("Le Rhône 9j", 50.0f);
+
         Aviao aviao = new Aviao("Fokker Dr.I", "Baron");
     
         aviao.imprimaOk();
